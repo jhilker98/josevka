@@ -3,7 +3,7 @@
 #+property: header-args:python :tangle rename.py :shebang "#!/usr/bin/env python3\n"
 #+startup: fold
 
-[[file:https://img.shields.io/badge/Built%20with-Org--Mode-lightblue?logo=org&logoColor=white&style=for-the-badge.svg]]
+[[file:https://img.shields.io/badge/Built%20with-Org--Mode-informational.svg?logo=org&logoColor=white&style=for-the-badge]]
 
 
 Josevka is a comfy build of Iosevka.
