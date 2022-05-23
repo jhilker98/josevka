@@ -1,0 +1,40 @@
+name: Build Font
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'build.org'
+  workflow_dispatch:
+
+jobs:
+ check_release_exists:
+    runs-on: ubuntu-latest
+    steps:
+      - id: check
+        run: |
+          VER=$(curl -sL https://api.github.com/repos/jhilker1/josevka/releases/latest | jq -r ".tag_name")
+          [[ $VER != "josevka-$(awk 'NR==5{print $2}') build.org" ]]
+ build_font:
+  needs: check_release_exists
+  runs-on: ubuntu-latest
+  # only build if release hasn't been built yet
+  if: needs.check_release_exists.result == 'success'
+  steps:
+    - name: Checkout Repo 
+      uses: actions/checkout@v2
+    
+    - name: Install Dependencies
+      run: |
+        sudo apt update --yes
+        sudo apt install dos2unix emacs-nox
+
+    - name: Export Build Plans
+      run: emacs -Q --batch -l org build.org -f org-babel-tangle
+
+    - name: Fix Line Ending Errors
+      run: |
+        dos2unix private-build-plans.toml
+        dos2unix rename.py
+
+    - run: ls -alh $(pwd)
