@@ -49,6 +49,26 @@ jobs:
       run: |
         docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka
         docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka-code
+        docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka-book-sans
+        docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka-book-slab
 
+       
 
-    - run: tree -L 4 $(pwd)/dist
+    - run: mkdir patched
+
+    - name: Patch Josevka
+      continue-on-error: true
+      run: docker run -v $(pwd)/dist/josevka/ttf:/in -v $(pwd)/patched/josevka:/out nerdfonts/patcher -c -l -q --no-progressbars
+
+    - name: Rename Josevka Family
+      run: find $(pwd)/patched/josevka -name "*.ttf" -exec ./rename.py {} "Josevka" \;
+        
+    - name: Patch Josevka Code
+      continue-on-error: true
+      run: docker run -v $(pwd)/dist/josevka/ttf:/in -v $(pwd)/patched/josevkaCode:/out nerdfonts/patcher -c -l -q --no-progressbars
+
+    - name: Rename Josevka Code Family
+      run: find $(pwd)/patched/josevka -name "*.ttf" -exec ./rename.py {} "Josevka Code" \;
+
+    - name: Create Font Zips
+      run: tree $(pwd)/patched
