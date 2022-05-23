@@ -46,6 +46,9 @@ jobs:
         echo "RELEASE_VER=$RELVER" >> $GITHUB_ENV
     
     - name: Build Fonts
-      run:  docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build
+      run: |
+        docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka
+        docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka-code
+
 
     - run: tree -L 4 $(pwd)/dist
