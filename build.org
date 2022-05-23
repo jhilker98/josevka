@@ -3,18 +3,18 @@
 #+property: header-args:python :tangle rename.py :shebang "#!/usr/bin/env python3\n"
 #+startup: fold
 
-This document contains my literate build plans for Iosevka, so that I only have to update one file instead of updating my documentation and source code-mono files. I keep each font grouped by category (such as UI fonts, monospace fonts, and code-mono fonts), and then by individual family. All code-mono and monospace fonts have been patched with [[github:ryanoasis/nerd-fonts][Nerd Fonts]] icons.
+This document contains my literate build plans for Iosevka, so that I only have to update one file instead of updating my documentation and source code files. I keep each font grouped by category (such as UI fonts, monospace fonts, and code-mono fonts), and then by individual family. All code and monospace fonts have been patched with [[github:ryanoasis/nerd-fonts][Nerd Fonts]] icons.
 
 
-**NOTE:** There are only two differences between a code-mono font and a monospace font, at least with Josevka - otherwise, the families are the exact same.
-   1. Monospace fonts have "fontconfig-mono" spacing, whereas code-mono fonts have "normal" spacing.
-   2. Monospace fonts do NOT contain ligatures, while code-mono fonts contain ligatures.
+**NOTE:** There are only two differences between a code font and a monospace font, at least with Josevka - otherwise, the families are the exact same.
+   1. Monospace fonts have "fontconfig-mono" spacing, whereas code fonts have "normal" spacing.
+   2. Monospace fonts do NOT contain ligatures, while code fonts contain ligatures.
 
 * Table of Contents :toc:quote:
 #+BEGIN_QUOTE
 - [[#versioning][Versioning]]
 - [[#post-patch-rename-script][Post-Patch Rename Script]]
-- [[#code-mono-fonts][Code-Mono Fonts]]
+- [[#code-fonts][Code Fonts]]
   - [[#josevka][Josevka]]
   - [[#josevka-code][Josevka Code]]
 - [[#ui-fonts][UI Fonts]]
