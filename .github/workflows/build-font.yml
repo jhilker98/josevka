@@ -27,7 +27,7 @@ jobs:
     - name: Install Dependencies
       run: |
         sudo apt update --yes
-        sudo apt install dos2unix emacs-nox
+        sudo apt install dos2unix emacs-nox python3-fontforge
 
     - name: Export Build Plans
       run: emacs -Q --batch -l org build.org -f org-babel-tangle
@@ -37,4 +37,15 @@ jobs:
         dos2unix private-build-plans.toml
         dos2unix rename.py
 
-    - run: ls -alh $(pwd)
+    - name: Set Font Vers
+      id: set-font-vers
+      run: |
+        VER=$(awk 'NR==1{print $2}' private-build-plans.toml | cut -d'v' -f2)
+        echo "IOSEVKA_VER=$VER" >> $GITHUB_ENV
+        RELVER=$(awk 'NR==2{print $2}' private-build-plans.toml)
+        echo "RELEASE_VER=$RELVER" >> $GITHUB_ENV
+    
+    - name: Build Fonts
+      run:  docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build
+
+    - run: tree -L 4 $(pwd)/dist
