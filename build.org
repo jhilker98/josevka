@@ -2,6 +2,7 @@
 #+property: header-args:toml :tangle yes :tangle private-build-plans.toml
 #+property: header-args:python :tangle rename.py :shebang "#!/usr/bin/env python3\n"
 #+startup: fold
+# v0.0.1
 
 This document contains my literate build plans for Iosevka, so that I only have to update one file instead of updating my documentation and source code files. I keep each font grouped by category (such as UI fonts, monospace fonts, and code-mono fonts), and then by individual family. All code and monospace fonts have been patched with [[github:ryanoasis/nerd-fonts][Nerd Fonts]] icons.
 
