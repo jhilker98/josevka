@@ -1,3 +1,30 @@
-#+title: Josevka
+#+title: josevka
+#+property: header-args:toml :tangle yes :tangle private-build-plans.toml
+#+property: header-args:python :tangle rename.py :shebang "#!/usr/bin/env python3\n"
+#+startup: fold
 
-Josevka is a comfy build of Iosevka
+[[file:https://img.shields.io/badge/Built%20with-Org--Mode-lightblue?logo=org&logoColor=white&style=for-the-badge.svg]]
+
+
+Josevka is a comfy build of Iosevka.
+
+* Table of Contents :toc:quote:
+#+BEGIN_QUOTE
+- [[#about][About]]
+- [[#installation][Installation]]
+- [[#development][Development]]
+#+END_QUOTE
+
+* About
+The main goal with this font was to have a monospace font (or fonts) with ligatures that was wider than the default Iosevka build, but still narrower than many of the other monospace fonts available, with each character being clear. I keep my build plans in an org-mode file, using the "literate programming" approach, as explained by Donald Knuth:
+#+begin_quote
+"Let us change our traditional attitude to the construction of programs: Instead of imagining that our main task is to instruct a computer what to do, let us concentrate rather on explaining to human beings what we want a computer to do."
+#+end_quote
+
+* TODO Screenshots :noexport:
+* Installation
+To download Josevka, or any of the variants, go to the [[github:jhilker1/josevka/releases/latest][latest release]] and download the font you want.
+
+* Development
+Have an issue with the font, or want to suggest a possible design for one? Feel free to file an issue.
+
