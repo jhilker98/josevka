@@ -65,7 +65,7 @@ jobs:
         
     - name: Patch Josevka Code
       continue-on-error: true
-      run: docker run -v $(pwd)/dist/josevka/ttf:/in -v $(pwd)/patched/josevkaCode:/out nerdfonts/patcher -c -l -q --no-progressbars
+      run: docker run -v $(pwd)/dist/josevka-code/ttf:/in -v $(pwd)/patched/josevkaCode:/out nerdfonts/patcher -c -l -q --no-progressbars
 
     - name: Rename Josevka Code Family
       run: find $(pwd)/patched/josevka -name "*.ttf" -exec ./rename.py {} "Josevka Code" \;
