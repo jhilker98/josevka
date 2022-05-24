@@ -14,7 +14,7 @@ jobs:
       - id: check
         run: |
           VER=$(curl -sL https://api.github.com/repos/jhilker1/josevka/releases/latest | jq -r ".tag_name")
-          [[ $VER != "josevka-$(awk 'NR==5{print $2}') build.org" ]]
+          [[ $VER != "josevka-v0.0.1 ]]
  build_font:
   needs: check_release_exists
   runs-on: ubuntu-latest
@@ -71,4 +71,15 @@ jobs:
       run: find $(pwd)/patched/josevka -name "*.ttf" -exec ./rename.py {} "Josevka Code" \;
 
     - name: Create Font Zips
-      run: tree $(pwd)/patched
+      run: |
+        zip -j -9 "Josevka-${{env.RELEASE_VER}}.zip" $(pwd)/patched/josevka/*.ttf
+        zip -j -9 "JosevkaCode-${{env.RELEASE_VER}}.zip" $(pwd)/patched/josevkaCode/*.ttf
+        zip -j -9 "JosevkaBookSans-${{env.RELEASE_VER}}.zip" $(pwd)/dist/josevka-book-sans/ttf/*.ttf
+        zip -j -9 "JosevkaBookSlab-${{env.RELEASE_VER}}.zip" $(pwd)/dist/josevka-book-slab/ttf/*.ttf
+
+    - name: Save Commit Message
+      env:
+        GH: ${{toJson(github.event)}}
+      run: |
+        echo "${{env.GH}}"
+    
