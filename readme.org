@@ -14,6 +14,8 @@ Josevka is a comfy build of Iosevka.
 - [[#about][About]]
 - [[#installation][Installation]]
 - [[#development][Development]]
+- [[#known-issues][Known Issues]]
+  - [[#the-renamepy-script-didnt-run-in-the-workflow][The =rename.py= script didn't run in the workflow!]]
 #+END_QUOTE
 
 * About
@@ -29,3 +31,6 @@ To download Josevka, or any of the variants, go to the [[github:jhilker1/josevka
 * Development
 Have an issue with the font, or want to suggest a possible design for one? Feel free to file an issue.
 
+* Known Issues
+** The =rename.py= script didn't run in the workflow!
+    I am aware of the problem - as a temporary workaround, I've included it with the artifacts you want to download. Note that you will need =python3-fontforge= installed in order to use it on your system.
