@@ -89,7 +89,7 @@ jobs:
     - name: Release Fonts
       uses: ncipollo/release-action@v1
       with:
-        artifacts: "*.zip",rename.py
+        artifacts: "*.zip,rename.py"
         tag: ${{ env.RELEASE_VER }}
         body: ${{ env.GIT_COMMIT_MESSAGE_BODY }}
         commit: ${{ github.event.head_commit.id }}
