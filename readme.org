@@ -4,7 +4,8 @@
 #+startup: fold
 
 [[file:https://img.shields.io/badge/Built%20with-Org--Mode-informational.svg?logo=org&logoColor=white&style=for-the-badge]]
-
+[[file:https://img.shields.io/github/workflow/status/jhilker1/josevka/Build%20Font.svg?style=for-the-badge]]
+[[https://github.com/jhilker1/josevka/releases/latest][https://img.shields.io/github/v/release/jhilker1/josevka.svg?display_name=release&style=for-the-badge]]
 
 Josevka is a comfy build of Iosevka.
 
