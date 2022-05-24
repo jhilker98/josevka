@@ -14,7 +14,7 @@ jobs:
       - id: check
         run: |
           VER=$(curl -sL https://api.github.com/repos/jhilker1/josevka/releases/latest | jq -r ".tag_name")
-          [[ $VER != "josevka-v0.1.0" ]]
+          [[ $VER != "josevka-v0.1.1" ]]
  build_font:
   needs: check_release_exists
   runs-on: ubuntu-latest
@@ -36,6 +36,8 @@ jobs:
       run: |
         dos2unix private-build-plans.toml
         dos2unix rename.py
+
+    - run: chmod +x rename.py
 
     - name: Set Font Vers
       id: set-font-vers
@@ -59,16 +61,13 @@ jobs:
     - name: Patch Josevka
       continue-on-error: true
       run: docker run -v $(pwd)/dist/josevka/ttf:/in -v $(pwd)/patched/josevka:/out nerdfonts/patcher -c -l -q --no-progressbars
-
-    - name: Rename Josevka Family
-      run: find $(pwd)/patched/josevka -name "*.ttf" -exec ./rename.py {} "Josevka" \;
         
     - name: Patch Josevka Code
       continue-on-error: true
       run: docker run -v $(pwd)/dist/josevka-code/ttf:/in -v $(pwd)/patched/josevkaCode:/out nerdfonts/patcher -c -l -q --no-progressbars
 
     - name: Rename Josevka Code Family
-      run: find $(pwd)/patched/josevka -name "*.ttf" -exec ./rename.py {} "Josevka Code" \;
+      run: find $(pwd)/patched/josevkaCode -name "*.ttf" -exec fontforge -script ./rename.py {} "Josevka Code" \;
 
     - name: Create Font Zips
       run: |
