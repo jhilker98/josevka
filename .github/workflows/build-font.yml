@@ -87,7 +87,7 @@ jobs:
         tag: josevka-${{ env.RELEASE_VER }}
         body: ${{ env.GIT_COMMIT_MESSAGE_BODY }}
         commit: ${{ github.event.head_commit.id }}
-        token: ${{ secrets.GH_TOKEN }}
+        token: ${{ secrets.RELEASE_TOKEN }}
 
 
 
