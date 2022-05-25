@@ -47,8 +47,8 @@ font_family = sys.argv[2]
 
 font = fontforge.open(font_file)
 font.familyname = font_family
+print(f"Font family is now {font.familyname}")
 font.generate(font_file)
-print(f"Font family is now {font.family}")
 #+end_src
 
 
