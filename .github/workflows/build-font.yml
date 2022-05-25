@@ -14,7 +14,7 @@ jobs:
       - id: check
         run: |
           VER=$(curl -sL https://api.github.com/repos/jhilker1/josevka/releases/latest | jq -r ".tag_name")
-          [[ $VER != "v0.0.2" ]]
+          [[ $VER != "v1.0.0" ]]
  build_font:
   needs: check_release_exists
   runs-on: ubuntu-latest
@@ -45,20 +45,55 @@ jobs:
         RELVER=$(awk 'NR==2{print $2}' private-build-plans.toml)
         echo "RELEASE_VER=$RELVER" >> $GITHUB_ENV
     
-    - name: Build Font
-      run: docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka-code
-
+    - name: Build Fonts
+      run: |
+        docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka
+        docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka-code
+        docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka-book-sans
+        docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka-book-slab
+        docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka-mono
+        docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka-code-mono
+       
 
     - run: mkdir patched
+
+    - name: Patch Josevka
+      continue-on-error: true
+      run: docker run -v $(pwd)/dist/josevka/ttf:/in -v $(pwd)/patched/josevka:/out nerdfonts/patcher -c -l -q --no-progressbars
         
     
     - name: Patch Josevka Code
       continue-on-error: true
       run: docker run -v $(pwd)/dist/josevka-code/ttf:/in -v $(pwd)/patched/josevkaCode:/out nerdfonts/patcher -c -l -q --no-progressbars
     
-    - name: Rename Josevka Code Family
+    - name: Patch Josevka Mono
       continue-on-error: true
-      run: python3 rename.py "$(pwd)/patched/josevkaCode/Josevka Code Nerd Font Complete.ttf" "Josevka Code"
+      run: docker run -v $(pwd)/dist/josevka-mono/ttf:/in -v $(pwd)/patched/josevkaMono:/out nerdfonts/patcher -c -l -s -q --no-progressbars
+    
+    - name: Patch Josevka Mono
+      continue-on-error: true
+      run: docker run -v $(pwd)/dist/josevka-code-mono/ttf:/in -v $(pwd)/patched/josevkaCodeMono:/out nerdfonts/patcher -c -l -s -q --no-progressbars
+    
+    - name: Create Font Zips
+      run: |
+        zip -j -9 "Josevka-${{env.RELEASE_VER}}.zip" $(pwd)/patched/josevka/*.ttf
+        zip -j -9 "JosevkaCode-${{env.RELEASE_VER}}.zip" $(pwd)/patched/josevkaCode/*.ttf
+        zip -j -9 "JosevkaBookSans-${{env.RELEASE_VER}}.zip" $(pwd)/dist/josevka-book-sans/ttf/*.ttf
+        zip -j -9 "JosevkaBookSlab-${{env.RELEASE_VER}}.zip" $(pwd)/dist/josevka-book-slab/ttf/*.ttf
+        zip -j -9 "JosevkaMono-${{env.RELEASE_VER}}.zip" $(pwd)/patched/josevkaMono/*.ttf
+        zip -j -9 "JosevkaCodeMono-${{env.RELEASE_VER}}.zip" $(pwd)/patched/josevkaCodeMono/*.ttf
+
+    - name: Expose git commit data
+      uses: rlespinasse/git-commit-data-action@v1
+
+    - name: Release Fonts
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: "*.zip,rename.py"
+        tag: ${{ env.RELEASE_VER }}
+        body: ${{ env.GIT_COMMIT_MESSAGE_BODY }}
+        commit: ${{ github.event.head_commit.id }}
+        token: ${{ secrets.RELEASE_TOKEN }}
 
 
 
