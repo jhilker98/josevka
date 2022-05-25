@@ -56,7 +56,7 @@ jobs:
       continue-on-error: true
       run: docker run -v $(pwd)/dist/josevka-code/ttf:/in -v $(pwd)/patched/josevkaCode:/out nerdfonts/patcher -c -l -q --no-progressbars
     
-    - run: tree $(pwd)/patched
+    - run: python3 rename.py "$(pwd)/patched/josevkaCode/Josevka Code Nerd Font Complete.ttf"
 
 
 
