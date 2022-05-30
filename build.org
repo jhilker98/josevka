@@ -1,8 +1,9 @@
+# v15.4.2
+# v1.0.1
 #+title: Josevka Build Plans
 #+property: header-args:toml :tangle yes :tangle private-build-plans.toml
 #+property: header-args:python :tangle rename.py :shebang "#!/usr/bin/env python3\n"
 #+startup: fold
-# v1.0.0
 
 This document contains my literate build plans for Iosevka, so that I only have to update one file instead of updating my documentation and source code files. I keep each font grouped by category (such as UI fonts, monospace fonts, and code-mono fonts), and then by individual family. All code and monospace fonts have been patched with [[github:ryanoasis/nerd-fonts][Nerd Fonts]] icons.
 
@@ -13,7 +14,6 @@ This document contains my literate build plans for Iosevka, so that I only have 
 
 * Table of Contents :toc:quote:
 #+BEGIN_QUOTE
-- [[#versioning][Versioning]]
 - [[#post-patch-rename-script][Post-Patch Rename Script]]
 - [[#code-fonts][Code Fonts]]
   - [[#josevka][Josevka]]
@@ -25,16 +25,6 @@ This document contains my literate build plans for Iosevka, so that I only have 
   - [[#josevka-mono][Josevka Mono]]
   - [[#josevka-code-mono][Josevka Code Mono]]
 #+END_QUOTE
-
-* Versioning
-The first two lines of my =private-build-plans.toml= are the most important to the file, since those lines contain the version of Iosevka I am using, and then the release version of the font. I'm trying to use semantic versioning here as best I can - a patch would be something like updating the version of Iosevka used, a minor version would be something like changing a character's design because of a patch, and a major release would be something like adding a new font family.
-
-#+begin_src toml
-# v15.3.1
-# v1.0.0
-#+end_src
-
-
 
 * Post-Patch Rename Script
 When I was running this on my local machine, I found that for any font besides the base "Josevka" font, the family name would still be "Josevka NF" if I was using windows, or "Josevka Nerd Font" if I was on Linux. This script uses the =fontforge= and =sys= modules to rename each font family - the font is first after invoking the command, and the new family name comes last.
@@ -51,7 +41,7 @@ font.generate(font_file)
 #+end_src
 
 
-* Code-Mono Fonts :noexport_3:
+* Code Fonts :noexport_3:
 ** Josevka
 Josevka is the base font, and I use it as a monospace font. It is based on Consolas, and I use it as a monospace font. I've made it a bit wider than the regular build of Iosevka, just because it feels very narrow.
 #+begin_src toml
@@ -2459,7 +2449,7 @@ Josevka is the base font, and I use it as a monospace font. It is based on Conso
     no-ligation = true
 
       [buildPlans.josevka-mono.variants]
-      inherits = "ss03"
+      inherits = "buildPlans.josevka"
 
    [buildPlans.josevka-mono.variants.design]
     a = "double-storey-tailed"
@@ -2525,7 +2515,7 @@ Josevka is the base font, and I use it as a monospace font. It is based on Conso
 ** Josevka Code Mono
 #+begin_src toml
 [buildPlans.josevka-code-mono]
-family = "Josevka Code-Mono Mono"
+family = "Josevka Code Mono"
 spacing = "fontconfig-mono"
 serifs = "sans"
 no-cv-ss = true
@@ -2533,11 +2523,8 @@ export-glyph-names = true
 no-ligations = true
 
   [buildPlans.josevka-code-mono.variants]
-  inherits = "ss14"
+  inherits = "buildPlans.josevka-code"
 
-    [buildPlans.josevka-code-mono.variants.design]
-    zero = "slashed"
-    at = "fourfold"
 
 [buildPlans.josevka-code-mono.weights.light]
 shape = 300
