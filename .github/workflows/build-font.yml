@@ -54,6 +54,7 @@ jobs:
         docker run -v $(pwd)/dist/josevka-mono/ttf:/in -v $(pwd)/patched/josevka/mono:/out nerdfonts/patcher -c -s -l -q --no-progressbars --careful
         cd patched/josevka
         zip -r -9 "Josevka-${{env.RELEASE_VER}}.zip" .
+        ls -alh $(pwd)
         mv "*.zip" ../../
         cd ../../
 
