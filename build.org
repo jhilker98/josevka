@@ -1,32 +1,30 @@
-# v15.4.2
-# v1.0.1
+# v15.5.0
+# v1.0.2
 #+title: Josevka Build Plans
-#+property: header-args:toml :tangle yes :tangle private-build-plans.toml
+#+property: header-args:conf-toml :tangle yes :tangle private-build-plans.toml
 #+property: header-args:python :tangle rename.py :shebang "#!/usr/bin/env python3\n"
 #+startup: fold
+
 
 This document contains my literate build plans for Iosevka, so that I only have to update one file instead of updating my documentation and source code files. I keep each font grouped by category (such as UI fonts, monospace fonts, and code-mono fonts), and then by individual family. All code and monospace fonts have been patched with [[github:ryanoasis/nerd-fonts][Nerd Fonts]] icons.
 
 
 **NOTE:** There are only two differences between a code font and a monospace font, at least with Josevka - otherwise, the families are the exact same.
-   1. Monospace fonts have "fontconfig-mono" spacing, whereas code fonts have "normal" spacing.
-   2. Monospace fonts do NOT contain ligatures, while code fonts contain ligatures.
+  1. Monospace fonts have "fontconfig-mono" spacing, whereas code fonts have "normal" spacing.
+  2. Monospace fonts do NOT contain ligatures, while code fonts contain ligatures.
 
 * Table of Contents :toc:quote:
 #+BEGIN_QUOTE
-- [[#post-patch-rename-script][Post-Patch Rename Script]]
-- [[#code-fonts][Code Fonts]]
-  - [[#josevka][Josevka]]
-  - [[#josevka-code][Josevka Code]]
+- [[#josevka][Josevka]]
+  - [[#josevka-mono][Josevka Mono]]
+- [[#josevka-code][Josevka Code]]
+  - [[#josevka-code-mono][Josevka Code Mono]]
 - [[#ui-fonts][UI Fonts]]
   - [[#josevka-book-sans][Josevka Book Sans]]
   - [[#josevka-book-slab][Josevka Book Slab]]
-- [[#monospace-fonts][Monospace Fonts]]
-  - [[#josevka-mono][Josevka Mono]]
-  - [[#josevka-code-mono][Josevka Code Mono]]
 #+END_QUOTE
 
-* Post-Patch Rename Script
+* Post-Patch Rename Script :noexport:
 When I was running this on my local machine, I found that for any font besides the base "Josevka" font, the family name would still be "Josevka NF" if I was using windows, or "Josevka Nerd Font" if I was on Linux. This script uses the =fontforge= and =sys= modules to rename each font family - the font is first after invoking the command, and the new family name comes last.
 #+begin_src python
 import sys
@@ -37,14 +35,15 @@ font_family = sys.argv[2]
 
 font = fontforge.open(font_file)
 font.familyname = font_family
+
+
 font.generate(font_file)
 #+end_src
 
 
-* Code Fonts :noexport_3:
-** Josevka
+* Josevka
 Josevka is the base font, and I use it as a monospace font. It is based on Consolas, and I use it as a monospace font. I've made it a bit wider than the regular build of Iosevka, just because it feels very narrow.
-#+begin_src toml
+#+begin_src conf-toml
 [buildPlans.josevka]
 family = "Josevka"
 spacing = "normal"
@@ -92,6 +91,7 @@ shape = 500
 menu = 500
 css = 500
 
+
 [buildPlans.josevka.weights.bold]
 shape = 700
 menu = 700
@@ -108,41 +108,41 @@ angle = 9.4
 shape = "italic"
 menu = "italic"
 css = "italic"
+
 [buildPlans.josevka.widths.normal]
 shape = 550
 menu = 5
 css = "normal"
 #+end_src
 
-
 *** Ligatures
-#+begin_src toml
+#+begin_src conf-toml
 # -----------------------------------------
 # Double-ended hyphen arrows
 # -----------------------------------------
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57600 # 0xe100
+unicode = 57600 # 0xe100
 featureTag = 'dlig'
 sequence = "<->"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57601 # 0xe101
+unicode = 57601 # 0xe101
 featureTag = 'dlig'
 sequence = "<-->"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57602 # 0xe102
+unicode = 57602 # 0xe102
 featureTag = 'dlig'
 sequence = "<--->"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57603 # 0xe103
+unicode = 57603 # 0xe103
 featureTag = 'dlig'
 sequence = "<---->"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57604 # 0xe104
+unicode = 57604 # 0xe104
 featureTag = 'dlig'
 sequence = "<----->"
 
@@ -151,27 +151,27 @@ sequence = "<----->"
 # -----------------------------------------
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57605 # 0xe105
+unicode = 57605 # 0xe105
 featureTag = 'dlig'
 sequence = "<=>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57606 # 0xe106
+unicode = 57606 # 0xe106
 featureTag = 'dlig'
 sequence = "<==>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57607 # 0xe107
+unicode = 57607 # 0xe107
 featureTag = 'dlig'
 sequence = "<===>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57608 # 0xe108
+unicode = 57608 # 0xe108
 featureTag = 'dlig'
 sequence = "<====>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57609 # 0xe109
+unicode = 57609 # 0xe109
 featureTag = 'dlig'
 sequence = "<=====>"
 
@@ -180,22 +180,22 @@ sequence = "<=====>"
 # -----------------------------------------
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57610 # 0xe10a
+unicode = 57610 # 0xe10a
 featureTag = 'dlig'
 sequence = "<**>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57611 # 0xe10b
+unicode = 57611 # 0xe10b
 featureTag = 'dlig'
 sequence = "<***>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57612 # 0xe10c
+unicode = 57612 # 0xe10c
 featureTag = 'dlig'
 sequence = "<****>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57613 # 0xe10d
+unicode = 57613 # 0xe10d
 featureTag = 'dlig'
 sequence = "<*****>"
 
@@ -204,12 +204,12 @@ sequence = "<*****>"
 # -----------------------------------------
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57614 # 0xe10e
+unicode = 57614 # 0xe10e
 featureTag = 'dlig'
 sequence = "<!--"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57615 # 0xe10f
+unicode = 57615 # 0xe10f
 featureTag = 'dlig'
 sequence = "<!---"
 
@@ -218,272 +218,272 @@ sequence = "<!---"
 # -----------------------------------------
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57616 # 0xe110
+unicode = 57616 # 0xe110
 featureTag = 'dlig'
 sequence = "<$"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57617 # 0xe111
+unicode = 57617 # 0xe111
 featureTag = 'dlig'
 sequence = "<$>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57618 # 0xe112
+unicode = 57618 # 0xe112
 featureTag = 'dlig'
 sequence = "$>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57619 # 0xe113
+unicode = 57619 # 0xe113
 featureTag = 'dlig'
 sequence = "<."
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57620 # 0xe114
+unicode = 57620 # 0xe114
 featureTag = 'dlig'
 sequence = "<.>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57621 # 0xe115
+unicode = 57621 # 0xe115
 featureTag = 'dlig'
 sequence = ".>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57622 # 0xe116
+unicode = 57622 # 0xe116
 featureTag = 'dlig'
 sequence = "<*"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57623 # 0xe117
+unicode = 57623 # 0xe117
 featureTag = 'dlig'
 sequence = "<*>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57624 # 0xe118
+unicode = 57624 # 0xe118
 featureTag = 'dlig'
 sequence = "*>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57625 # 0xe119
+unicode = 57625 # 0xe119
 featureTag = 'dlig'
 sequence = "<\\"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57626 # 0xe11a
+unicode = 57626 # 0xe11a
 featureTag = 'dlig'
 sequence = "<\\>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57627 # 0xe11b
+unicode = 57627 # 0xe11b
 featureTag = 'dlig'
 sequence = "\\>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57628 # 0xe11c
+unicode = 57628 # 0xe11c
 featureTag = 'dlig'
 sequence = "</"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57629 # 0xe11d
+unicode = 57629 # 0xe11d
 featureTag = 'dlig'
 sequence = "</>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57630 # 0xe11e
+unicode = 57630 # 0xe11e
 featureTag = 'dlig'
 sequence = "/>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57631 # 0xe11f
+unicode = 57631 # 0xe11f
 featureTag = 'dlig'
 sequence = "<\""
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57632 # 0xe120
+unicode = 57632 # 0xe120
 featureTag = 'dlig'
 sequence = "<\">"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57633 # 0xe121
+unicode = 57633 # 0xe121
 featureTag = 'dlig'
 sequence = "\">"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57634 # 0xe122
+unicode = 57634 # 0xe122
 featureTag = 'dlig'
 sequence = "<'"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57635 # 0xe123
+unicode = 57635 # 0xe123
 featureTag = 'dlig'
 sequence = "<'>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57636 # 0xe124
+unicode = 57636 # 0xe124
 featureTag = 'dlig'
 sequence = "'>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57637 # 0xe125
+unicode = 57637 # 0xe125
 featureTag = 'dlig'
 sequence = "<^"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57638 # 0xe126
+unicode = 57638 # 0xe126
 featureTag = 'dlig'
 sequence = "<^>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57639 # 0xe127
+unicode = 57639 # 0xe127
 featureTag = 'dlig'
 sequence = "^>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57640 # 0xe128
+unicode = 57640 # 0xe128
 featureTag = 'dlig'
 sequence = "<&"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57641 # 0xe129
+unicode = 57641 # 0xe129
 featureTag = 'dlig'
 sequence = "<&>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57642 # 0xe12a
+unicode = 57642 # 0xe12a
 featureTag = 'dlig'
 sequence = "&>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57643 # 0xe12b
+unicode = 57643 # 0xe12b
 featureTag = 'dlig'
 sequence = "<%"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57644 # 0xe12c
+unicode = 57644 # 0xe12c
 featureTag = 'dlig'
 sequence = "<%>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57645 # 0xe12d
+unicode = 57645 # 0xe12d
 featureTag = 'dlig'
 sequence = "%>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57646 # 0xe12e
+unicode = 57646 # 0xe12e
 featureTag = 'dlig'
 sequence = "<@"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57647 # 0xe12f
+unicode = 57647 # 0xe12f
 featureTag = 'dlig'
 sequence = "<@>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57648 # 0xe130
+unicode = 57648 # 0xe130
 featureTag = 'dlig'
 sequence = "@>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57649 # 0xe131
+unicode = 57649 # 0xe131
 featureTag = 'dlig'
 sequence = "<#"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57650 # 0xe132
+unicode = 57650 # 0xe132
 featureTag = 'dlig'
 sequence = "<#>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57651 # 0xe133
+unicode = 57651 # 0xe133
 featureTag = 'dlig'
 sequence = "#>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57652 # 0xe134
+unicode = 57652 # 0xe134
 featureTag = 'dlig'
 sequence = "<+"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57653 # 0xe135
+unicode = 57653 # 0xe135
 featureTag = 'dlig'
 sequence = "<+>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57654 # 0xe136
+unicode = 57654 # 0xe136
 featureTag = 'dlig'
 sequence = "+>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57655 # 0xe137
+unicode = 57655 # 0xe137
 featureTag = 'dlig'
 sequence = "<-"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57656 # 0xe138
+unicode = 57656 # 0xe138
 featureTag = 'dlig'
 sequence = "<->"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57657 # 0xe139
+unicode = 57657 # 0xe139
 featureTag = 'dlig'
 sequence = "->"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57658 # 0xe13a
+unicode = 57658 # 0xe13a
 featureTag = 'dlig'
 sequence = "<!"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57659 # 0xe13b
+unicode = 57659 # 0xe13b
 featureTag = 'dlig'
 sequence = "<!>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57660 # 0xe13c
+unicode = 57660 # 0xe13c
 featureTag = 'dlig'
 sequence = "!>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57661 # 0xe13d
+unicode = 57661 # 0xe13d
 featureTag = 'dlig'
 sequence = "<?"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57662 # 0xe13e
+unicode = 57662 # 0xe13e
 featureTag = 'dlig'
 sequence = "<?>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57663 # 0xe13f
+unicode = 57663 # 0xe13f
 featureTag = 'dlig'
 sequence = "?>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57664 # 0xe140
+unicode = 57664 # 0xe140
 featureTag = 'dlig'
 sequence = "<|"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57665 # 0xe141
+unicode = 57665 # 0xe141
 featureTag = 'dlig'
 sequence = "<|>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57666 # 0xe142
+unicode = 57666 # 0xe142
 featureTag = 'dlig'
 sequence = "|>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57667 # 0xe143
+unicode = 57667 # 0xe143
 featureTag = 'dlig'
 sequence = "<:"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57668 # 0xe144
+unicode = 57668 # 0xe144
 featureTag = 'dlig'
 sequence = "<:>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57669 # 0xe145
+unicode = 57669 # 0xe145
 featureTag = 'dlig'
 sequence = ":>"
 
@@ -492,17 +492,17 @@ sequence = ":>"
 # -----------------------------------------
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57670 # 0xe146
+unicode = 57670 # 0xe146
 featureTag = 'dlig'
 sequence = "::"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57671 # 0xe147
+unicode = 57671 # 0xe147
 featureTag = 'dlig'
 sequence = ":::"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57672 # 0xe148
+unicode = 57672 # 0xe148
 featureTag = 'dlig'
 sequence = "::::"
 
@@ -511,482 +511,482 @@ sequence = "::::"
 # -----------------------------------------
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57673 # 0xe149
+unicode = 57673 # 0xe149
 featureTag = 'dlig'
 sequence = "->"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57674 # 0xe14a
+unicode = 57674 # 0xe14a
 featureTag = 'dlig'
 sequence = "->-"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57675 # 0xe14b
+unicode = 57675 # 0xe14b
 featureTag = 'dlig'
 sequence = "->--"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57676 # 0xe14c
+unicode = 57676 # 0xe14c
 featureTag = 'dlig'
 sequence = "->>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57677 # 0xe14d
+unicode = 57677 # 0xe14d
 featureTag = 'dlig'
 sequence = "->>-"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57678 # 0xe14e
+unicode = 57678 # 0xe14e
 featureTag = 'dlig'
 sequence = "->>--"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57679 # 0xe14f
+unicode = 57679 # 0xe14f
 featureTag = 'dlig'
 sequence = "->>>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57680 # 0xe150
+unicode = 57680 # 0xe150
 featureTag = 'dlig'
 sequence = "->>>-"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57681 # 0xe151
+unicode = 57681 # 0xe151
 featureTag = 'dlig'
 sequence = "->>>--"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57682 # 0xe152
+unicode = 57682 # 0xe152
 featureTag = 'dlig'
 sequence = "-->"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57683 # 0xe153
+unicode = 57683 # 0xe153
 featureTag = 'dlig'
 sequence = "-->-"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57684 # 0xe154
+unicode = 57684 # 0xe154
 featureTag = 'dlig'
 sequence = "-->--"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57685 # 0xe155
+unicode = 57685 # 0xe155
 featureTag = 'dlig'
 sequence = "-->>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57686 # 0xe156
+unicode = 57686 # 0xe156
 featureTag = 'dlig'
 sequence = "-->>-"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57687 # 0xe157
+unicode = 57687 # 0xe157
 featureTag = 'dlig'
 sequence = "-->>--"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57688 # 0xe158
+unicode = 57688 # 0xe158
 featureTag = 'dlig'
 sequence = "-->>>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57689 # 0xe159
+unicode = 57689 # 0xe159
 featureTag = 'dlig'
 sequence = "-->>>-"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57690 # 0xe15a
+unicode = 57690 # 0xe15a
 featureTag = 'dlig'
 sequence = "-->>>--"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57691 # 0xe15b
+unicode = 57691 # 0xe15b
 featureTag = 'dlig'
 sequence = ">-"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57692 # 0xe15c
+unicode = 57692 # 0xe15c
 featureTag = 'dlig'
 sequence = ">--"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57693 # 0xe15d
+unicode = 57693 # 0xe15d
 featureTag = 'dlig'
 sequence = ">>-"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57694 # 0xe15e
+unicode = 57694 # 0xe15e
 featureTag = 'dlig'
 sequence = ">>--"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57695 # 0xe15f
+unicode = 57695 # 0xe15f
 featureTag = 'dlig'
 sequence = ">>>-"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57696 # 0xe160
+unicode = 57696 # 0xe160
 featureTag = 'dlig'
 sequence = ">>>--"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57697 # 0xe161
+unicode = 57697 # 0xe161
 featureTag = 'dlig'
 sequence = "=>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57698 # 0xe162
+unicode = 57698 # 0xe162
 featureTag = 'dlig'
 sequence = "=>="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57699 # 0xe163
+unicode = 57699 # 0xe163
 featureTag = 'dlig'
 sequence = "=>=="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57700 # 0xe164
+unicode = 57700 # 0xe164
 featureTag = 'dlig'
 sequence = "=>>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57701 # 0xe165
+unicode = 57701 # 0xe165
 featureTag = 'dlig'
 sequence = "=>>="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57702 # 0xe166
+unicode = 57702 # 0xe166
 featureTag = 'dlig'
 sequence = "=>>=="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57703 # 0xe167
+unicode = 57703 # 0xe167
 featureTag = 'dlig'
 sequence = "=>>>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57704 # 0xe168
+unicode = 57704 # 0xe168
 featureTag = 'dlig'
 sequence = "=>>>="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57705 # 0xe169
+unicode = 57705 # 0xe169
 featureTag = 'dlig'
 sequence = "=>>>=="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57706 # 0xe16a
+unicode = 57706 # 0xe16a
 featureTag = 'dlig'
 sequence = "==>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57707 # 0xe16b
+unicode = 57707 # 0xe16b
 featureTag = 'dlig'
 sequence = "==>="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57708 # 0xe16c
+unicode = 57708 # 0xe16c
 featureTag = 'dlig'
 sequence = "==>=="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57709 # 0xe16d
+unicode = 57709 # 0xe16d
 featureTag = 'dlig'
 sequence = "==>>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57710 # 0xe16e
+unicode = 57710 # 0xe16e
 featureTag = 'dlig'
 sequence = "==>>="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57711 # 0xe16f
+unicode = 57711 # 0xe16f
 featureTag = 'dlig'
 sequence = "==>>=="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57712 # 0xe170
+unicode = 57712 # 0xe170
 featureTag = 'dlig'
 sequence = "==>>>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57713 # 0xe171
+unicode = 57713 # 0xe171
 featureTag = 'dlig'
 sequence = "==>>>="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57714 # 0xe172
+unicode = 57714 # 0xe172
 featureTag = 'dlig'
 sequence = "==>>>=="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57715 # 0xe173
+unicode = 57715 # 0xe173
 featureTag = 'dlig'
 sequence = ">="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57716 # 0xe174
+unicode = 57716 # 0xe174
 featureTag = 'dlig'
 sequence = ">=="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57717 # 0xe175
+unicode = 57717 # 0xe175
 featureTag = 'dlig'
 sequence = ">>="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57718 # 0xe176
+unicode = 57718 # 0xe176
 featureTag = 'dlig'
 sequence = ">>=="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57719 # 0xe177
+unicode = 57719 # 0xe177
 featureTag = 'dlig'
 sequence = ">>>="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57720 # 0xe178
+unicode = 57720 # 0xe178
 featureTag = 'dlig'
 sequence = ">>>=="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57721 # 0xe179
+unicode = 57721 # 0xe179
 featureTag = 'dlig'
 sequence = "<-"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57722 # 0xe17a
+unicode = 57722 # 0xe17a
 featureTag = 'dlig'
 sequence = "-<-"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57723 # 0xe17b
+unicode = 57723 # 0xe17b
 featureTag = 'dlig'
 sequence = "--<-"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57724 # 0xe17c
+unicode = 57724 # 0xe17c
 featureTag = 'dlig'
 sequence = "<<-"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57725 # 0xe17d
+unicode = 57725 # 0xe17d
 featureTag = 'dlig'
 sequence = "-<<-"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57726 # 0xe17e
+unicode = 57726 # 0xe17e
 featureTag = 'dlig'
 sequence = "--<<-"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57727 # 0xe17f
+unicode = 57727 # 0xe17f
 featureTag = 'dlig'
 sequence = "<<<-"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57728 # 0xe180
+unicode = 57728 # 0xe180
 featureTag = 'dlig'
 sequence = "-<<<-"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57729 # 0xe181
+unicode = 57729 # 0xe181
 featureTag = 'dlig'
 sequence = "--<<<-"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57730 # 0xe182
+unicode = 57730 # 0xe182
 featureTag = 'dlig'
 sequence = "<--"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57731 # 0xe183
+unicode = 57731 # 0xe183
 featureTag = 'dlig'
 sequence = "-<--"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57732 # 0xe184
+unicode = 57732 # 0xe184
 featureTag = 'dlig'
 sequence = "--<--"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57733 # 0xe185
+unicode = 57733 # 0xe185
 featureTag = 'dlig'
 sequence = "<<--"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57734 # 0xe186
+unicode = 57734 # 0xe186
 featureTag = 'dlig'
 sequence = "-<<--"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57735 # 0xe187
+unicode = 57735 # 0xe187
 featureTag = 'dlig'
 sequence = "--<<--"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57736 # 0xe188
+unicode = 57736 # 0xe188
 featureTag = 'dlig'
 sequence = "<<<--"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57737 # 0xe189
+unicode = 57737 # 0xe189
 featureTag = 'dlig'
 sequence = "-<<<--"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57738 # 0xe18a
+unicode = 57738 # 0xe18a
 featureTag = 'dlig'
 sequence = "--<<<--"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57739 # 0xe18b
+unicode = 57739 # 0xe18b
 featureTag = 'dlig'
 sequence = "-<"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57740 # 0xe18c
+unicode = 57740 # 0xe18c
 featureTag = 'dlig'
 sequence = "--<"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57741 # 0xe18d
+unicode = 57741 # 0xe18d
 featureTag = 'dlig'
 sequence = "-<<"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57742 # 0xe18e
+unicode = 57742 # 0xe18e
 featureTag = 'dlig'
 sequence = "--<<"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57743 # 0xe18f
+unicode = 57743 # 0xe18f
 featureTag = 'dlig'
 sequence = "-<<<"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57744 # 0xe190
+unicode = 57744 # 0xe190
 featureTag = 'dlig'
 sequence = "--<<<"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57745 # 0xe191
+unicode = 57745 # 0xe191
 featureTag = 'dlig'
 sequence = "<="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57746 # 0xe192
+unicode = 57746 # 0xe192
 featureTag = 'dlig'
 sequence = "=<="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57747 # 0xe193
+unicode = 57747 # 0xe193
 featureTag = 'dlig'
 sequence = "==<="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57748 # 0xe194
+unicode = 57748 # 0xe194
 featureTag = 'dlig'
 sequence = "<<="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57749 # 0xe195
+unicode = 57749 # 0xe195
 featureTag = 'dlig'
 sequence = "=<<="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57750 # 0xe196
+unicode = 57750 # 0xe196
 featureTag = 'dlig'
 sequence = "==<<="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57751 # 0xe197
+unicode = 57751 # 0xe197
 featureTag = 'dlig'
 sequence = "<<<="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57752 # 0xe198
+unicode = 57752 # 0xe198
 featureTag = 'dlig'
 sequence = "=<<<="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57753 # 0xe199
+unicode = 57753 # 0xe199
 featureTag = 'dlig'
 sequence = "==<<<="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57754 # 0xe19a
+unicode = 57754 # 0xe19a
 featureTag = 'dlig'
 sequence = "<=="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57755 # 0xe19b
+unicode = 57755 # 0xe19b
 featureTag = 'dlig'
 sequence = "=<=="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57756 # 0xe19c
+unicode = 57756 # 0xe19c
 featureTag = 'dlig'
 sequence = "==<=="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57757 # 0xe19d
+unicode = 57757 # 0xe19d
 featureTag = 'dlig'
 sequence = "<<=="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57758 # 0xe19e
+unicode = 57758 # 0xe19e
 featureTag = 'dlig'
 sequence = "=<<=="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57759 # 0xe19f
+unicode = 57759 # 0xe19f
 featureTag = 'dlig'
 sequence = "==<<=="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57760 # 0xe1a0
+unicode = 57760 # 0xe1a0
 featureTag = 'dlig'
 sequence = "<<<=="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57761 # 0xe1a1
+unicode = 57761 # 0xe1a1
 featureTag = 'dlig'
 sequence = "=<<<=="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57762 # 0xe1a2
+unicode = 57762 # 0xe1a2
 featureTag = 'dlig'
 sequence = "==<<<=="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57763 # 0xe1a3
+unicode = 57763 # 0xe1a3
 featureTag = 'dlig'
 sequence = "=<"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57764 # 0xe1a4
+unicode = 57764 # 0xe1a4
 featureTag = 'dlig'
 sequence = "==<"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57765 # 0xe1a5
+unicode = 57765 # 0xe1a5
 featureTag = 'dlig'
 sequence = "=<<"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57766 # 0xe1a6
+unicode = 57766 # 0xe1a6
 featureTag = 'dlig'
 sequence = "==<<"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57767 # 0xe1a7
+unicode = 57767 # 0xe1a7
 featureTag = 'dlig'
 sequence = "=<<<"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57768 # 0xe1a8
+unicode = 57768 # 0xe1a8
 featureTag = 'dlig'
 sequence = "==<<<"
 
@@ -995,42 +995,42 @@ sequence = "==<<<"
 # -----------------------------------------
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57769 # 0xe1a9
+unicode = 57769 # 0xe1a9
 featureTag = 'dlig'
 sequence = ">=>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57770 # 0xe1aa
+unicode = 57770 # 0xe1aa
 featureTag = 'dlig'
 sequence = ">->"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57771 # 0xe1ab
+unicode = 57771 # 0xe1ab
 featureTag = 'dlig'
 sequence = ">-->"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57772 # 0xe1ac
+unicode = 57772 # 0xe1ac
 featureTag = 'dlig'
 sequence = ">==>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57773 # 0xe1ad
+unicode = 57773 # 0xe1ad
 featureTag = 'dlig'
 sequence = "<=<"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57774 # 0xe1ae
+unicode = 57774 # 0xe1ae
 featureTag = 'dlig'
 sequence = "<-<"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57775 # 0xe1af
+unicode = 57775 # 0xe1af
 featureTag = 'dlig'
 sequence = "<--<"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57776 # 0xe1b0
+unicode = 57776 # 0xe1b0
 featureTag = 'dlig'
 sequence = "<==<"
 
@@ -1039,22 +1039,22 @@ sequence = "<==<"
 # -----------------------------------------
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57777 # 0xe1b1
+unicode = 57777 # 0xe1b1
 featureTag = 'dlig'
 sequence = ">>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57778 # 0xe1b2
+unicode = 57778 # 0xe1b2
 featureTag = 'dlig'
 sequence = ">>>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57779 # 0xe1b3
+unicode = 57779 # 0xe1b3
 featureTag = 'dlig'
 sequence = "<<"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57780 # 0xe1b4
+unicode = 57780 # 0xe1b4
 featureTag = 'dlig'
 sequence = "<<<"
 
@@ -1063,92 +1063,92 @@ sequence = "<<<"
 # -----------------------------------------
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57781 # 0xe1b5
+unicode = 57781 # 0xe1b5
 featureTag = 'dlig'
 sequence = ":+"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57782 # 0xe1b6
+unicode = 57782 # 0xe1b6
 featureTag = 'dlig'
 sequence = ":-"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57783 # 0xe1b7
+unicode = 57783 # 0xe1b7
 featureTag = 'dlig'
 sequence = ":="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57784 # 0xe1b8
+unicode = 57784 # 0xe1b8
 featureTag = 'dlig'
 sequence = "+:"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57785 # 0xe1b9
+unicode = 57785 # 0xe1b9
 featureTag = 'dlig'
 sequence = "-:"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57786 # 0xe1ba
+unicode = 57786 # 0xe1ba
 featureTag = 'dlig'
 sequence = "=:"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57787 # 0xe1bb
+unicode = 57787 # 0xe1bb
 featureTag = 'dlig'
 sequence = "=^"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57788 # 0xe1bc
+unicode = 57788 # 0xe1bc
 featureTag = 'dlig'
 sequence = "=+"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57789 # 0xe1bd
+unicode = 57789 # 0xe1bd
 featureTag = 'dlig'
 sequence = "=-"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57790 # 0xe1be
+unicode = 57790 # 0xe1be
 featureTag = 'dlig'
 sequence = "=*"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57791 # 0xe1bf
+unicode = 57791 # 0xe1bf
 featureTag = 'dlig'
 sequence = "=/"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57792 # 0xe1c0
+unicode = 57792 # 0xe1c0
 featureTag = 'dlig'
 sequence = "=%"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57793 # 0xe1c1
+unicode = 57793 # 0xe1c1
 featureTag = 'dlig'
 sequence = "^="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57794 # 0xe1c2
+unicode = 57794 # 0xe1c2
 featureTag = 'dlig'
 sequence = "+="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57795 # 0xe1c3
+unicode = 57795 # 0xe1c3
 featureTag = 'dlig'
 sequence = "-="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57796 # 0xe1c4
+unicode = 57796 # 0xe1c4
 featureTag = 'dlig'
 sequence = "*="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57797 # 0xe1c5
+unicode = 57797 # 0xe1c5
 featureTag = 'dlig'
 sequence = "/="
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57798 # 0xe1c6
+unicode = 57798 # 0xe1c6
 featureTag = 'dlig'
 sequence = "%="
 
@@ -1157,12 +1157,12 @@ sequence = "%="
 # -----------------------------------------
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57799 # 0xe1c7
+unicode = 57799 # 0xe1c7
 featureTag = 'dlig'
 sequence = "/\\"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57800 # 0xe1c8
+unicode = 57800 # 0xe1c8
 featureTag = 'dlig'
 sequence = "\\/"
 
@@ -1171,32 +1171,81 @@ sequence = "\\/"
 # -----------------------------------------
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57801 # 0xe1c9
+unicode = 57801 # 0xe1c9
 featureTag = 'dlig'
 sequence = "<>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57802 # 0xe1ca
+unicode = 57802 # 0xe1ca
 featureTag = 'dlig'
 sequence = "<+"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57803 # 0xe1cb
+unicode = 57803 # 0xe1cb
 featureTag = 'dlig'
 sequence = "<+>"
 
 [[buildPlans.josevka.compatibility-ligatures]]
-unicode-mono = 57804 # 0xe1cc
+unicode = 57804 # 0xe1cc
 featureTag = 'dlig'
 sequence = "+>"
-
-
 #+end_src
 
 
-** Josevka Code
+** Josevka Mono
+Josevka is the base font, and I use it as a monospace font. It is based on Consolas, and I use it as a monospace font. I've made it a bit wider than the regular build of Iosevka, just because it feels very narrow.
+#+begin_src conf-toml
+    [buildPlans.josevka-mono]
+    family = "Josevka Mono"
+    spacing = "fontconfig-mono"
+    serifs = "sans"
+    no-cv-ss = true
+    no-ligation = true
+
+      [buildPlans.josevka-mono.variants]
+      inherits = "buildPlans.josevka"
+
+    [buildPlans.josevka-mono.weights.light]
+    shape = 300
+    menu = 300
+    css = 300
+
+    [buildPlans.josevka-mono.weights.regular]
+    shape = 400
+    menu = 400
+    css = 400
+
+    [buildPlans.josevka-mono.weights.medium]
+    shape = 500
+    menu = 500
+    css = 500
+
+    [buildPlans.josevka-mono.weights.bold]
+    shape = 700
+    menu = 700
+    css = 700
+
+    [buildPlans.josevka-mono.widths.normal]
+    shape = 525
+    menu = 5
+    css = "normal"
+
+    [buildPlans.josevka-mono.slopes.upright]
+    angle = 0
+    shape = "upright"
+    menu = "upright"
+    css = "normal"
+
+    [buildPlans.josevka-mono.slopes.italic]
+    angle = 9.4
+    shape = "italic"
+    menu = "italic"
+    css = "italic"
+#+end_src
+
+* Josevka Code
 Josevka Code is another customized build, based on JetBrains Mono. While I liked JetBrains Mono when I tried it, several things I didn't like about it - it felt too wide, and I much prefer a slashed zero to a dotted zero.
-#+begin_src toml
+#+begin_src conf-toml
 [buildPlans.josevka-code]
 family = "Josevka Code"
 spacing = "term"
@@ -1248,14 +1297,13 @@ menu = "italic"
 css = "italic"
 
 [buildPlans.josevka-code.widths.normal]
-shape = 550
+shape = 525
 menu = 5
 css = "normal"
 #+end_src
 
-
 *** Ligatures
-#+begin_src toml
+#+begin_src conf-toml
 # -----------------------------------------
 # Double-ended hyphen arrows
 # -----------------------------------------
@@ -2330,10 +2378,67 @@ featureTag = 'dlig'
 sequence = "+>"
 #+end_src
 
+
+** Josevka Code Mono
+#+begin_src conf-toml
+[buildPlans.josevka-code-mono]
+family = "Josevka Code Mono"
+spacing = "fontconfig-mono"
+serifs = "sans"
+no-cv-ss = true
+export-glyph-names = true
+no-ligations = true
+
+  [buildPlans.josevka-code-mono.variants]
+  inherits = "ss14"
+
+    [buildPlans.josevka-code-mono.variants.design]
+    zero = "slashed"
+    at = "fourfold"
+
+[buildPlans.josevka-code-mono.weights.light]
+shape = 300
+menu = 300
+css = 300
+
+[buildPlans.josevka-code-mono.weights.regular]
+shape = 400
+menu = 400
+css = 400
+
+[buildPlans.josevka-code-mono.weights.medium]
+shape = 500
+menu = 500
+css = 500
+
+[buildPlans.josevka-code-mono.weights.bold]
+shape = 700
+menu = 700
+css = 700
+
+[buildPlans.josevka-code-mono.slopes.upright]
+angle = 0
+shape = "upright"
+menu = "upright"
+css = "normal"
+
+[buildPlans.josevka-code-mono.slopes.italic]
+angle = 9.4
+shape = "italic"
+menu = "italic"
+css = "italic"
+
+[buildPlans.josevka-code-mono.widths.normal]
+shape = 525
+menu = 5
+css = "normal"
+#+end_src
+
+
 * UI Fonts
 ** Josevka Book Sans
 Josevka Book Sans is a UI font based on Consolas, that is meant to be easy on the eyes while still maintaining clarity between characters.
-#+begin_src toml
+#+begin_src conf-toml
 [buildPlans.josevka-book-sans]
 family = "Josevka Book Sans"
 spacing = "quasi-proportional"
@@ -2361,9 +2466,8 @@ export-glyph-names = true
     percent = "rings-continuous-slash"
     question = "corner"
 
-
-  [buildPlans.josevka-book-sans.ligations]
-  inherits = "dlig"
+[buildPlans.josevka-book-sans.ligations]
+inherits = "dlig"
 
 [buildPlans.josevka-book-sans.widths.normal]
 shape = 600
@@ -2383,9 +2487,17 @@ menu = "italic"
 css = "italic"
 #+end_src
 
+*** Ligatures
+#+begin_src conf-toml
+[[buildPlans.josevka-book-sans.compatibility-ligatures]]
+unicode = 57633 # 0xe121
+featureTag = 'dlig'
+sequence = "\">"
+#+end_src
+
 ** Josevka Book Slab
     Similar to Josevka Book Sans, Josevka Book Slab is meant to be easy on the eyes while still being clear.
-    #+begin_src toml
+    #+begin_src conf-toml
 [buildPlans.josevka-book-slab]
 family = "Josevka Book Slab"
 spacing = "quasi-proportional"
@@ -2435,131 +2547,5 @@ angle = 9.4
 shape = "italic"
 menu = "italic"
 css = "italic"
-    #+end_src
-
-* Monospace Fonts
-** Josevka Mono
-Josevka is the base font, and I use it as a monospace font. It is based on Consolas, and I use it as a monospace font. I've made it a bit wider than the regular build of Iosevka, just because it feels very narrow.
-#+begin_src toml
-    [buildPlans.josevka-mono]
-    family = "Josevka Mono"
-    spacing = "fontconfig-mono"
-    serifs = "sans"
-    no-cv-ss = true
-    no-ligation = true
-
-      [buildPlans.josevka-mono.variants]
-      inherits = "buildPlans.josevka"
-
-   [buildPlans.josevka-mono.variants.design]
-    a = "double-storey-tailed"
-
-    b = "toothed"
-    d = "tailed-serifless"
-    f = "flat-hook-crossbar-at-x-height"
-    g = "single-storey-flat-hook-serifless"
-    k = "symmetric-connected-serifless"
-    q = "tailed"
-    t = "flat-hook-short-neck"
-    capital-j = "serifed-symmetric"
-    four = "semi-open-non-crossing"
-    dollar = "open"
-    cent = "open"
-    percent = "rings-continuous-slash"
-    question = "corner"
-
-    [buildPlans.josevka-mono.variants.italic]
-    f = "flat-hook-tailed-crossbar-at-x-height"
-    l = "tailed-serifed"
-    q = "diagonal-tailed"
-
-    [buildPlans.josevka-mono.weights.light]
-    shape = 300
-    menu = 300
-    css = 300
-
-    [buildPlans.josevka-mono.weights.regular]
-    shape = 400
-    menu = 400
-    css = 400
-
-    [buildPlans.josevka-mono.weights.medium]
-    shape = 500
-    menu = 500
-    css = 500
-
-    [buildPlans.josevka-mono.weights.bold]
-    shape = 700
-    menu = 700
-    css = 700
-
-    [buildPlans.josevka-mono.widths.normal]
-    shape = 550
-    menu = 5
-    css = "normal"
-
-    [buildPlans.josevka-mono.slopes.upright]
-    angle = 0
-    shape = "upright"
-    menu = "upright"
-    css = "normal"
-
-    [buildPlans.josevka-mono.slopes.italic]
-    angle = 9.4
-    shape = "italic"
-    menu = "italic"
-    css = "italic"
-
 #+end_src
 
-** Josevka Code Mono
-#+begin_src toml
-[buildPlans.josevka-code-mono]
-family = "Josevka Code Mono"
-spacing = "fontconfig-mono"
-serifs = "sans"
-no-cv-ss = true
-export-glyph-names = true
-no-ligations = true
-
-  [buildPlans.josevka-code-mono.variants]
-  inherits = "buildPlans.josevka-code"
-
-
-[buildPlans.josevka-code-mono.weights.light]
-shape = 300
-menu = 300
-css = 300
-
-[buildPlans.josevka-code-mono.weights.regular]
-shape = 400
-menu = 400
-css = 400
-
-[buildPlans.josevka-code-mono.weights.medium]
-shape = 500
-menu = 500
-css = 500
-
-[buildPlans.josevka-code-mono.weights.bold]
-shape = 700
-menu = 700
-css = 700
-
-[buildPlans.josevka-code-mono.slopes.upright]
-angle = 0
-shape = "upright"
-menu = "upright"
-css = "normal"
-
-[buildPlans.josevka-code-mono.slopes.italic]
-angle = 9.4
-shape = "italic"
-menu = "italic"
-css = "italic"
-
-[buildPlans.josevka-code-mono.widths.normal]
-shape = 550
-menu = 5
-css = "normal"
-#+end_src
