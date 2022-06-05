@@ -53,37 +53,8 @@ jobs:
         docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka-mono
         docker run -v $(pwd)/dist/josevka-mono/ttf:/in -v $(pwd)/patched/josevka/mono:/out nerdfonts/patcher -c -s -l -q --no-progressbars --careful
         cd patched/josevka
-        zip -r -9 "../../Josevka-${{env.RELEASE_VER}}.zip" .
+        zip -r -9 "Josevka-${{env.RELEASE_VER}}.zip" .
+        mv "*.zip" ../../
         cd ../../
 
-    - name: Build Josevka Code
-      continue-on-error: true
-      run: |
-        docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka-code
-        docker run -v $(pwd)/dist/josevka-code/ttf:/in -v $(pwd)/patched/josevkaCode:/out nerdfonts/patcher -c -l -q --no-progressbars --careful
-        docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka-code-mono
-        docker run -v $(pwd)/dist/josevka-code-mono/ttf:/in -v $(pwd)/patched/josevkaCode/mono:/out nerdfonts/patcher -c -s -l -q --no-progressbars --careful
-        cd patched/josevka
-        zip -r -9 "../../JosevkaCode-${{env.RELEASE_VER}}.zip" .
-        cd ../../
-      
-    - name: Build Josevka Book
-      run: |
-        docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka-book-sans
-        zip -j -9 "JosevkaBookSans-${{env.RELEASE_VER}}.zip" $(pwd)/dist/josevka-book-sans/ttf/* 
-        docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka-book-slab
-        zip -j -9 "JosevkaBookSans-${{env.RELEASE_VER}}.zip" $(pwd)/dist/josevka-book-slab/ttf/* 
-      
-    - run: ls -alh 
-    
-    - name: Expose git commit data
-      uses: rlespinasse/git-commit-data-action@v1
-
-    - name: Release Fonts
-      uses: ncipollo/release-action@v1
-      with:
-        artifacts: "*.zip,rename.py"
-        tag: ${{ env.RELEASE_VER }}
-        body: ${{ env.GIT_COMMIT_MESSAGE_BODY }}
-        commit: ${{ github.event.head_commit.id }}
-        token: ${{ secrets.RELEASE_TOKEN }}
+    - run: ls -alh . 
