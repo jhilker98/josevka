@@ -14,7 +14,7 @@ jobs:
       - id: check
         run: |
           VER=$(curl -sL https://api.github.com/repos/jhilker1/josevka/releases/latest | jq -r ".tag_name")
-          [[ $VER != "v1.0.2" ]]
+          [[ $VER != "v1.0.1.1" ]]
  build_font:
   needs: check_release_exists
   runs-on: ubuntu-latest
@@ -49,10 +49,7 @@ jobs:
       run: |
         docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka
         docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka-mono
-        docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka-code
-        docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka-code-mono
-        docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka-book-sans
-        docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka-book-slab
+        
 
     - name: Patch Josevka
       continue-on-error: true
@@ -73,13 +70,8 @@ jobs:
     
     - name: Create Font Zips
       run: |
-        zip -j -9 "JosevkaBookSans-${{env.RELEASE_VER}}.zip" $(pwd)/dist/josevka-book-sans/ttf/*.ttf
-        zip -j -9 "JosevkaBookSlab-${{env.RELEASE_VER}}.zip" $(pwd)/dist/josevka-book-slab/ttf/*.ttf
         cd patched/josevka
-        zip -r -9 "Josevka-${{env.RELEASE_VER}}.zip" . 
-        mv "*.zip" ../../
-        cd ../josevkaCode
-        zip -r -9 "JosevkaCode-${{env.RELEASE_VER}}.zip" .
+        zip -r -9 "Josevka-${{env.RELEASE_VER}}.zip" $(pwd)/*
         mv "*.zip" ../../
         cd ../../
 
