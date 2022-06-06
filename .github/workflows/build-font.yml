@@ -62,4 +62,6 @@ jobs:
     - name: Create Font Zips
       run: | 
         cd "patched/josevka"
-        ls -alh .
+        chmod -R g+w . 
+        zip -r -9 "Josevka-${{env.RELEASE_VER}}.zip" .
+        ls .   
