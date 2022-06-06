@@ -54,19 +54,12 @@ jobs:
     - name: Patch Josevka
       continue-on-error: true
       run: docker run -v $(pwd)/dist/josevka/ttf:/in -v $(pwd)/patched/josevka:/out nerdfonts/patcher -c -l -q --no-progressbars
-        
-    
-    - name: Patch Josevka Code
-      continue-on-error: true
-      run: docker run -v $(pwd)/dist/josevka-code/ttf:/in -v $(pwd)/patched/josevkaCode:/out nerdfonts/patcher -c -l -q --no-progressbars
     
     - name: Patch Josevka Mono
       continue-on-error: true
       run: docker run -v $(pwd)/dist/josevka-mono/ttf:/in -v $(pwd)/patched/josevka/mono:/out nerdfonts/patcher -c -l -s -q --no-progressbars
     
-    - name: Patch Josevka Code Mono
-      continue-on-error: true
-      run: docker run -v $(pwd)/dist/josevka-code-mono/ttf:/in -v $(pwd)/patched/josevkaCode/mono:/out nerdfonts/patcher -c -l -s -q --no-progressbars
+
     
     - name: Create Font Zips
       run: |
