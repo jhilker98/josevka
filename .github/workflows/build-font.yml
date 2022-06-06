@@ -52,6 +52,7 @@ jobs:
         
 
     - name: Patch Josevka
+      continue-on-error: true
       run: docker run -v $(pwd)/dist/josevka/ttf:/in -v $(pwd)/patched/josevka:/out nerdfonts/patcher -c -l -q --no-progressbars
     
     - name: Patch Josevka Mono
