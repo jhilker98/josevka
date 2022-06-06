@@ -58,4 +58,6 @@ jobs:
       continue-on-error: true
       run: docker run -v $(pwd)/dist/josevka/ttf:/in -v $(pwd)/patched/josevka:/out nerdfonts/patcher -c -l -q --no-progressbars --careful
 
-    - run: ls -alh $(pwd)/patched/josevka
+    - run: |
+      sudo chmod -R u+rwx,a+rx,g+rx $(pwd)/patched
+      ls -alh $(pwd)/patched/josevka
