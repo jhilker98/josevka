@@ -43,23 +43,19 @@ jobs:
         RELVER=$(awk 'NR==2{print $2}' build.org)
         echo "RELEASE_VER=$RELVER" >> $GITHUB_ENV
     
-    - run: mkdir patched
-    
     - name: Build Josevka
       run: |
         docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka
         docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka-mono
         
+    - run: mkdir patched
 
-    - name: Patch Josevka
-      continue-on-error: true
-      run: docker run -v $(pwd)/dist/josevka/ttf:/in -v $(pwd)/patched/josevka:/out nerdfonts/patcher -c -l -q --no-progressbars
-    
     - name: Patch Josevka Mono
       continue-on-error: true
       run: docker run -v $(pwd)/dist/josevka-mono/ttf:/in -v $(pwd)/patched/josevka/mono:/out nerdfonts/patcher -c -l -s -q --no-progressbars
-    
-    - name: Create Font Zips
-      run: | 
-       mv patched/josevka "$(pwd)/josevkaTTF"
-       ls -alh $(pwd)
+
+    - name: Patch Josevka
+      continue-on-error: true
+      run: docker run -v $(pwd)/dist/josevka/ttf:/in -v $(pwd)/patched/josevka:/out nerdfonts/patcher -c -l -q --no-progressbars --careful
+
+    - run: ls -alh $(pwd)/patched/josevka
