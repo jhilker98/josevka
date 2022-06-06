@@ -58,6 +58,8 @@ jobs:
       continue-on-error: true
       run: docker run -v $(pwd)/dist/josevka/ttf:/in -v $(pwd)/patched/josevka:/out nerdfonts/patcher -c -l -q --no-progressbars --careful
 
-    - run: |
+    - name: Create Font Zips
+      run: |
         sudo chmod -R u+rwx,a+rx,g+rx $(pwd)/patched
-        ls -alh $(pwd)/patched/josevka
+        cd patched/josevka
+        zip -r -9 "Josevka-${{env.RELEASE_VER}}.zip" .
