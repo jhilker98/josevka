@@ -45,12 +45,17 @@ jobs:
     
     - run: mkdir patched
     
-    - name: Build Josevka
-      continue-on-error: true
+    - name: Build Fonts
       run: |
         docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka
-        docker run -v $(pwd)/dist/josevka/ttf:/in -v $(pwd)/patched/josevka:/out nerdfonts/patcher -c -l -q --no-progressbars
         docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka-mono
+
+
+
+    - name: Patch Fonts
+      continue-on-error: true
+      run: | 
+        docker run -v $(pwd)/dist/josevka/ttf:/in -v $(pwd)/patched/josevka:/out nerdfonts/patcher -c -l -q --no-progressbars --careful
         docker run -v $(pwd)/dist/josevka-mono/ttf:/in -v $(pwd)/patched/josevka/mono:/out nerdfonts/patcher -c -l -s -q --no-progressbars
 
     - run: tree -L 4 .
