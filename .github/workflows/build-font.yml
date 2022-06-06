@@ -50,16 +50,16 @@ jobs:
         
     - run: mkdir patched
 
-    - name: Patch Josevka Mono
-      continue-on-error: true
-      run: docker run -v $(pwd)/dist/josevka-mono/ttf:/in -v $(pwd)/patched/josevka/mono:/out nerdfonts/patcher -c -l -s -q --no-progressbars
-
     - name: Patch Josevka
       continue-on-error: true
       run: docker run -v $(pwd)/dist/josevka/ttf:/in -v $(pwd)/patched/josevka:/out nerdfonts/patcher -c -l -q --no-progressbars --careful
 
+    - name: Patch Josevka Mono
+      continue-on-error: true
+      run: docker run -v $(pwd)/dist/josevka-mono/ttf:/in -v $(pwd)/patched/josevka/mono:/out nerdfonts/patcher -c -l -s -q --no-progressbars
+
     - name: Create Font Zips
       run: |
         cd patched/josevka
-        rm -rf *.zip
-        sudo zip -9 "Josevka-${{env.RELEASE_VER}}.zip" .
+        zip -r -9 "Josevka-{{env.RELEASE_VER}}.zip" $(pwd)/*
+        ls
