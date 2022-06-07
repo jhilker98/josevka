@@ -1,5 +1,5 @@
 # v15.5.0
-# v1.0.2
+# v1.0.3
 #+title: Josevka Build Plans
 #+property: header-args:conf-toml :tangle yes :tangle private-build-plans.toml
 #+property: header-args:python :tangle rename.py :shebang "#!/usr/bin/env python3\n"
@@ -11,7 +11,7 @@ This document contains my literate build plans for Iosevka, so that I only have 
 
 **NOTE:** There are only two differences between a code font and a monospace font, at least with Josevka - otherwise, the families are the exact same.
   1. Monospace fonts have "fontconfig-mono" spacing, whereas code fonts have "normal" spacing.
-  2. Monospace fonts do NOT contain ligatures, while code fonts contain ligatures.
+  2. Monospace fonts do NOT contain compatibility ligatures, while code fonts contain compatibility ligatures.
 
 * Table of Contents :toc:quote:
 #+BEGIN_QUOTE
@@ -1205,6 +1205,9 @@ Josevka is the base font, and I use it as a monospace font. It is based on Conso
       [buildPlans.josevka-mono.variants]
       inherits = "buildPlans.josevka"
 
+      [buildPlans.josevka-mono.ligations]
+      inherits = "dlig"
+
     [buildPlans.josevka-mono.weights.light]
     shape = 300
     menu = 300
@@ -2387,14 +2390,12 @@ spacing = "fontconfig-mono"
 serifs = "sans"
 no-cv-ss = true
 export-glyph-names = true
-no-ligations = true
 
   [buildPlans.josevka-code-mono.variants]
-  inherits = "ss14"
+  inherits = "buildPlans.josevka-code"
 
-    [buildPlans.josevka-code-mono.variants.design]
-    zero = "slashed"
-    at = "fourfold"
+[buildPlans.josevka-code-mono.ligations]
+  inherits = "dlig"
 
 [buildPlans.josevka-code-mono.weights.light]
 shape = 300
@@ -2432,6 +2433,9 @@ css = "italic"
 shape = 525
 menu = 5
 css = "normal"
+
+
+
 #+end_src
 
 
