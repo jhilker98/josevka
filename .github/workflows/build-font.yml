@@ -77,3 +77,16 @@ jobs:
         cd patched
         zip -r -9 "Josevka-${{env.RELEASE_VER}}.zip" $(pwd)/josevka/*.ttf $(pwd)/josevkaMono/*.ttf
         zip -r -9 "JosevkaCode-${{env.RELEASE_VER}}.zip" $(pwd)/josevkaCode/*.ttf $(pwd)/josevkaCodeMono/*.ttf
+        mv *.zip ../
+    
+    - name: Expose git commit data
+      uses: rlespinasse/git-commit-data-action@v1
+
+    - name: Release Fonts
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: "*.zip,rename.py"
+        tag: ${{ env.RELEASE_VER }}
+        body: ${{ env.GIT_COMMIT_MESSAGE_BODY }}
+        commit: ${{ github.event.head_commit.id }}
+        token: ${{ secrets.RELEASE_TOKEN }}
