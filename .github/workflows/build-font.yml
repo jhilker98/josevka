@@ -47,10 +47,6 @@ jobs:
       run: |
         docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka
         docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka-mono
-        docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka-code
-        docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka-code-mono
-        docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka-book-sans
-        docker run -e FONT_VERSION=${{env.IOSEVKA_VER}} -i -v $(pwd):/build avivace/iosevka-build ttf::josevka-book-slab
 
     - run: mkdir patched
 
@@ -64,9 +60,6 @@ jobs:
 
     - name: Create Nerd Font Zips
       run: |
-        zip -j -9 "JosevkaBookSans-${{env.RELEASE_VER}}.zip" $(pwd)/dist/josevka-book-sans/ttf/*
-        zip -j -9 "JosevkaBookSlab-${{env.RELEASE_VER}}.zip" $(pwd)/dist/josevka-book-slab/ttf/*
         cd patched
         zip -r -9 "Josevka-{{env.RELEASE_VER}}.zip" $(pwd)/josevka/*.ttf $(pwd)/josevkaMono/*.ttf
-        zip -r -9 "JosevkaCode-${{env.RELEASE_VER}}.zip" $(pwd)/josevkaCode/*.ttf $(pwd)/josevkaCodeMono/*.ttf
         ls
