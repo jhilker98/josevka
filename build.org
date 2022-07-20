@@ -1,5 +1,5 @@
-# v15.5.2
-# v1.0.6.1
+# v15.6.0
+# v1.0.7
 #+title: Josevka Build Plans
 #+property: header-args:conf-toml :tangle yes :tangle private-build-plans.toml
 #+property: header-args:python :tangle rename.py :shebang "#!/usr/bin/env python3\n"
