@@ -13,7 +13,7 @@ jobs:
     steps:
       - id: check
         run: |
-          VER=$(curl -sL https://api.github.com/repos/jhilker1/josevka/releases/latest | jq -r ".tag_name")
+          VER=$(curl -sL https://api.github.com/repos/jhilker98/josevka/releases/latest | jq -r ".tag_name")
           [[ $VER != "v1.2" ]]
  build_font:
   needs: check_release_exists
