@@ -9,6 +9,11 @@
 
 Josevka is a comfy build of Iosevka.
 
+#+begin_quote
+*NOTE*: This repo is no longer actively maintained.
+#+end_quote
+
+
 * Table of Contents :toc:quote:
 #+BEGIN_QUOTE
 - [[#about][About]]
